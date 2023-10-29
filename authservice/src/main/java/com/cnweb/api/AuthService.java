@@ -13,11 +13,12 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
 
-@org.springframework.stereotype.Service
+@Service
 @RequiredArgsConstructor
 @ComponentScan(basePackages = {"com.cnweb.api.config.security"})
-public class Service {
+public class AuthService {
     private final AccountRepository accountRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;

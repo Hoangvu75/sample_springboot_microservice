@@ -18,8 +18,8 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/auth")
 @RequiredArgsConstructor
-public class Controller {
-    private final Service service;
+public class AuthController {
+    private final AuthService authService;
 
     @PostMapping("/register")
     public ResponseEntity<Object> register(
@@ -33,7 +33,7 @@ public class Controller {
                 errorResponse.setMessage(validateRequest);
                 return ResponseEntity.status(500).body(errorResponse);
             }
-            return ResponseEntity.ok(service.register(request));
+            return ResponseEntity.ok(authService.register(request));
         } catch (Throwable error) {
             errorResponse.setMessage(error.getMessage());
             return ResponseEntity.status(500).body(errorResponse);
@@ -52,7 +52,7 @@ public class Controller {
                 errorResponse.setMessage(validateRequest);
                 return ResponseEntity.status(500).body(errorResponse);
             }
-            return ResponseEntity.ok(service.login(request));
+            return ResponseEntity.ok(authService.login(request));
         } catch (Throwable error) {
             errorResponse.setMessage(error.getMessage());
             return ResponseEntity.status(500).body(errorResponse);
