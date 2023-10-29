@@ -1,5 +1,7 @@
 package com.cnweb.api.config.security;
 
+import com.cnweb.api.models.Account;
+import com.cnweb.api.models.AccountUserDetails;
 import com.cnweb.api.repositories.AccountRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,9 +28,11 @@ public class AppConfig {
     }
 
     @Bean
-    UserDetailsService userDetailsService() {
-        return username -> accountRepository.findByEmail(username)
-        .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+    public UserDetailsService userDetailsService() {
+        return username -> {
+            Account account = accountRepository.findByEmail(username).orElseThrow(() -> new UsernameNotFoundException("User not found"));
+            return new AccountUserDetails(account.getId(), account.getEmail(), account.getPassword(), account.getRole());
+        };
     }
 
     @Bean

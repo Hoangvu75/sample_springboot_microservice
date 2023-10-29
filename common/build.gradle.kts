@@ -1,7 +1,12 @@
 plugins {
 	java
+	val kotlinVersion = "1.6.10"
 	id("org.springframework.boot") version "3.1.5"
 	id("io.spring.dependency-management") version "1.1.3"
+	kotlin("jvm") version kotlinVersion
+	kotlin("plugin.spring") version kotlinVersion
+	kotlin("plugin.jpa") version kotlinVersion
+	kotlin("kapt") version kotlinVersion
 }
 
 group = "com.cnweb"
@@ -28,10 +33,23 @@ dependencies {
 	implementation("io.jsonwebtoken:jjwt-impl:0.11.5")
 	implementation("io.jsonwebtoken:jjwt-jackson:0.11.5")
 	implementation("jakarta.servlet:jakarta.servlet-api")
+	implementation("com.querydsl:querydsl-jpa:5.0.0:jakarta")
+	kapt("com.querydsl:querydsl-apt:5.0.0:jakarta")
+	implementation("org.hibernate:hibernate-core:5.6.5.Final")
 	compileOnly("org.projectlombok:lombok")
 	annotationProcessor("org.projectlombok:lombok")
 }
 
 tasks.withType<Test> {
 	useJUnitPlatform()
+}
+
+kapt {
+	keepJavacAnnotationProcessors = true
+	javacOptions {
+		option("querydsl.entityAccessors", true)
+	}
+	arguments {
+		arg("plugin", "com.querydsl.apt.jpa.JPAAnnotationProcessor")
+	}
 }
