@@ -34,13 +34,14 @@ public class JwtService {
         extraClaims.put("account_id", userDetails.getId());
         extraClaims.put("email", userDetails.getEmail());
         extraClaims.put("role", userDetails.getRole());
-        return generateToken(extraClaims);
+        return generateToken(extraClaims, userDetails.getEmail());
     }
 
-    private String generateToken(Map<String, Object> extraClaims) {
+    private String generateToken(Map<String, Object> extraClaims, String username) {
         return Jwts
                 .builder()
                 .setClaims(extraClaims)
+                .setSubject(username)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 24))
                 .signWith(getSigningKey(), SignatureAlgorithm.HS256)
