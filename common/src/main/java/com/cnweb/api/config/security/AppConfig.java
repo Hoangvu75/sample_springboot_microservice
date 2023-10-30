@@ -31,7 +31,7 @@ public class AppConfig {
     public UserDetailsService userDetailsService() {
         return username -> {
             Account account = accountRepository.findByEmail(username).orElseThrow(() -> new UsernameNotFoundException("User not found"));
-            return new AccountUserDetails(account.getId(), account.getEmail(), account.getPassword(), account.getRole());
+            return new AccountUserDetails(account.getEmail(), account.getPassword(), account.getRole());
         };
     }
 

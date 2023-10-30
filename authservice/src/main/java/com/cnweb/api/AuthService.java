@@ -22,7 +22,7 @@ public class AuthService {
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
 
-    public Object register(RegisterRequest request) {
+    public BaseResponse register(RegisterRequest request) {
         Account account = Account.builder()
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
@@ -36,7 +36,7 @@ public class AuthService {
                 .build();
     }
 
-    public Object login(LoginRequest request) {
+    public LoginResponse login(LoginRequest request) {
         Account account = accountRepository.findByEmail(request.getEmail()).orElseThrow();
         var authToken = new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword());
         authenticationManager.authenticate(authToken);

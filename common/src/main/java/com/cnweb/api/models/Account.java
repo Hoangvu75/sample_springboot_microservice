@@ -17,14 +17,23 @@ import java.util.UUID;
 public class Account {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    public UUID id;
+    private UUID id;
 
     @Column(unique = true)
-    public String email;
+    private String email;
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    public String password;
+    private String password;
 
-    public String role;
+    private String role;
+    private Long createdAt;
+    private Long updatedAt;
+    private Long deletedAt;
+
+    @PrePersist
+    private void prePersist() {
+        createdAt = System.currentTimeMillis();
+        updatedAt = System.currentTimeMillis();
+    }
 }
 
