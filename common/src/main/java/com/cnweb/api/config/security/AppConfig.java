@@ -1,6 +1,6 @@
 package com.cnweb.api.config.security;
 
-import com.cnweb.api.models.Account;
+import com.cnweb.api.entities.Account;
 import com.cnweb.api.models.AccountUserDetails;
 import com.cnweb.api.repositories.AccountRepository;
 import lombok.RequiredArgsConstructor;

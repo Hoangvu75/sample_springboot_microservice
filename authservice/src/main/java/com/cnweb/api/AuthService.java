@@ -5,7 +5,7 @@ import com.cnweb.api.dto.BaseResponse;
 import com.cnweb.api.dto.LoginRequest;
 import com.cnweb.api.dto.LoginResponse;
 import com.cnweb.api.dto.RegisterRequest;
-import com.cnweb.api.models.Account;
+import com.cnweb.api.entities.Account;
 import com.cnweb.api.models.Role;
 import com.cnweb.api.repositories.AccountRepository;
 import lombok.RequiredArgsConstructor;

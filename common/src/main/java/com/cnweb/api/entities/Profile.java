@@ -1,12 +1,12 @@
-package com.cnweb.api.models;
+package com.cnweb.api.entities;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.sql.Date;
 import java.util.UUID;
 
 @Data
@@ -14,18 +14,17 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class Account {
+public class Profile {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    @Column(unique = true)
-    private String email;
-
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    private String password;
-
-    private String role;
+    private String accountId;
+    private String name;
+    private String phone;
+    private String address;
+    private Date dateOfBirth;
+    private String gender;
     private Long createdAt;
     private Long updatedAt;
     private Long deletedAt;
@@ -36,4 +35,3 @@ public class Account {
         updatedAt = System.currentTimeMillis();
     }
 }
-

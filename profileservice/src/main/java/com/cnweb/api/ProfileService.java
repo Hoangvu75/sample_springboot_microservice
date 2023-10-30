@@ -3,7 +3,7 @@ package com.cnweb.api;
 import com.cnweb.api.config.security.JwtService;
 import com.cnweb.api.dto.BaseResponse;
 import com.cnweb.api.dto.CreateProfileRequest;
-import com.cnweb.api.models.Profile;
+import com.cnweb.api.entities.Profile;
 import com.cnweb.api.repositories.ProfileRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -18,6 +18,10 @@ public class ProfileService {
         Profile profile = Profile.builder()
                 .accountId(accountId)
                 .name(request.getName())
+                .phone(request.getPhone())
+                .address(request.getAddress())
+                .dateOfBirth(request.getDateOfBirth())
+                .gender(request.getGender().toString())
                 .build();
         profileRepository.save(profile);
         return BaseResponse.builder()

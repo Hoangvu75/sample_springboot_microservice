@@ -1,6 +1,6 @@
 package com.cnweb.api.config.security;
 
-import com.cnweb.api.models.Account;
+import com.cnweb.api.entities.Account;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
