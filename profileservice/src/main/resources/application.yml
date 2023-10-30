@@ -13,7 +13,3 @@ spring:
         dialect: org.hibernate.dialect.PostgreSQLDialect
     hibernate:
       ddl-auto: update
-
-springdoc:
-  swagger-ui:
-    path: /swagger/profile-service/

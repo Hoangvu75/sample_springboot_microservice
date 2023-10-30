@@ -12,8 +12,8 @@ public class GatewayConfig {
     public RouteLocator customRouteLocator(RouteLocatorBuilder builder) {
         System.out.println("setup routes");
         return builder.routes()
-                .route("authservice", r -> r.path("/api/auth/**")
-                        .uri("http://localhost:8081"))
+                .route("auth", r -> r.path("/api/auth/**").uri("http://localhost:8081"))
+                .route("profile", r -> r.path("/api/profile/**").uri("http://localhost:8082"))
                 .build();
     }
 }

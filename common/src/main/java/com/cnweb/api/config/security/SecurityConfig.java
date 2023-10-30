@@ -23,10 +23,13 @@ public class SecurityConfig {
 
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        String[] pathArray = new String[]{"/api/auth/**", "/swagger-ui/**", "/swagger-ui.html/**", "/v3/api-docs/**"};
+
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(x -> x
-                        .requestMatchers("/api/auth/**").permitAll()
+                        .requestMatchers(pathArray)
+                        .permitAll()
                         .anyRequest()
                         .authenticated()
                 )
