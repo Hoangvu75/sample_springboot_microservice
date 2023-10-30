@@ -1,6 +1,7 @@
 package com.cnweb.api.repositories;
 
-import com.cnweb.api.models.Account;
+
+import com.cnweb.api.entities.Account;
 import com.cnweb.api.entities.QAccount;
 import com.cnweb.api.utils.QuerydslCustomRepositorySupport;
 import com.querydsl.jpa.impl.JPAQuery;
