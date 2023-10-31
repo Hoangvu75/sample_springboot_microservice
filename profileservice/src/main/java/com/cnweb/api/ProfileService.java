@@ -8,6 +8,8 @@ import com.cnweb.api.repositories.ProfileRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class ProfileService {
@@ -15,20 +17,29 @@ public class ProfileService {
 
     public BaseResponse create(CreateProfileRequest request, String accessToken) {
         String accountId = JwtService.extractAccountId(accessToken);
-        Profile profile = Profile.builder()
-                .accountId(accountId)
-                .name(request.getName())
-                .phone(request.getPhone())
-                .address(request.getAddress())
-                .dateOfBirth(request.getDateOfBirth())
-                .gender(request.getGender().toString())
-                .build();
-        profileRepository.save(profile);
-        return BaseResponse.builder()
-                .isSuccess(true)
-                .message("Created profile successfully.")
-                .data(profile)
-                .build();
+        Optional<Profile> profile = profileRepository.findByAccountId(accountId);
+        if (profile.isEmpty()) {
+            Profile newProfile = Profile.builder()
+                    .accountId(accountId)
+                    .name(request.getName())
+                    .phone(request.getPhone())
+                    .address(request.getAddress())
+                    .dateOfBirth(request.getDateOfBirth())
+                    .gender(request.getGender().toString())
+                    .build();
+            profileRepository.save(newProfile);
+            return BaseResponse.builder()
+                    .isSuccess(true)
+                    .message("Created profile successfully.")
+                    .data(newProfile)
+                    .build();
+        } else {
+            return BaseResponse.builder()
+                    .isSuccess(false)
+                    .message("Profile already created for this account.")
+                    .data(null)
+                    .build();
+        }
     }
 
     public BaseResponse getProfile(String accessToken) {
