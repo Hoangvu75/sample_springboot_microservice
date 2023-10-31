@@ -13,8 +13,8 @@ import org.springframework.stereotype.Service;
 public class ProfileService {
     private final ProfileRepository profileRepository;
 
-    public BaseResponse create(CreateProfileRequest request, String authorization) {
-        String accountId = JwtService.extractAccountId(authorization);
+    public BaseResponse create(CreateProfileRequest request, String accessToken) {
+        String accountId = JwtService.extractAccountId(accessToken);
         Profile profile = Profile.builder()
                 .accountId(accountId)
                 .name(request.getName())
@@ -27,6 +27,16 @@ public class ProfileService {
         return BaseResponse.builder()
                 .isSuccess(true)
                 .message("Created profile successfully.")
+                .data(profile)
+                .build();
+    }
+
+    public BaseResponse getProfile(String accessToken) {
+        String accountId = JwtService.extractAccountId(accessToken);
+        Profile profile = profileRepository.findByAccountId(accountId).orElseThrow();
+        return BaseResponse.builder()
+                .isSuccess(true)
+                .message("Get profile successfully.")
                 .data(profile)
                 .build();
     }

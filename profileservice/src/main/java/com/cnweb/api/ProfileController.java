@@ -8,10 +8,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -34,8 +31,20 @@ public class ProfileController {
                 errorResponse.setMessage(validateRequest);
                 return ResponseEntity.status(500).body(errorResponse);
             }
-            String authorization = httpServletRequest.getHeader("Authorization").substring(7);
-            return ResponseEntity.ok(profileService.create(request, authorization));
+            String accessToken = httpServletRequest.getHeader("Authorization").substring(7);
+            return ResponseEntity.ok(profileService.create(request, accessToken));
+        } catch (Throwable error) {
+            errorResponse.setMessage(error.getMessage());
+            return ResponseEntity.status(500).body(errorResponse);
+        }
+    }
+
+    @GetMapping("/get-profile")
+    public ResponseEntity<Object> getProfile(HttpServletRequest httpServletRequest) {
+        BaseResponse errorResponse = BaseResponse.builder().isSuccess(false).build();
+        try {
+            String accessToken = httpServletRequest.getHeader("Authorization").substring(7);
+            return ResponseEntity.ok(profileService.getProfile(accessToken));
         } catch (Throwable error) {
             errorResponse.setMessage(error.getMessage());
             return ResponseEntity.status(500).body(errorResponse);
