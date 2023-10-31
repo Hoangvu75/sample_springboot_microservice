@@ -1,12 +1,13 @@
 package com.cnweb.api.entities;
 
+import com.cnweb.api.models.DateOfBirth;
+import com.cnweb.api.models.Gender;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.sql.Date;
 import java.util.UUID;
 
 @Data
@@ -23,15 +24,17 @@ public class Profile {
     private String name;
     private String phone;
     private String address;
-    private Date dateOfBirth;
-    private String gender;
+    private DateOfBirth dateOfBirth;
+    private Gender gender;
     private Long createdAt;
     private Long updatedAt;
     private Long deletedAt;
+    private Boolean isActive;
 
     @PrePersist
     private void prePersist() {
         createdAt = System.currentTimeMillis();
         updatedAt = System.currentTimeMillis();
+        isActive = true;
     }
 }

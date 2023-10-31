@@ -29,11 +29,13 @@ public class Account {
     private Long createdAt;
     private Long updatedAt;
     private Long deletedAt;
+    private Boolean isActive;
 
     @PrePersist
     private void prePersist() {
         createdAt = System.currentTimeMillis();
         updatedAt = System.currentTimeMillis();
+        isActive = true;
     }
 }
 

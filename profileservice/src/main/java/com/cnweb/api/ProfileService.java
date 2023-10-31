@@ -4,6 +4,8 @@ import com.cnweb.api.config.security.JwtService;
 import com.cnweb.api.dto.BaseResponse;
 import com.cnweb.api.dto.CreateProfileRequest;
 import com.cnweb.api.entities.Profile;
+import com.cnweb.api.models.DateOfBirth;
+import com.cnweb.api.models.Gender;
 import com.cnweb.api.repositories.ProfileRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -24,8 +26,14 @@ public class ProfileService {
                     .name(request.getName())
                     .phone(request.getPhone())
                     .address(request.getAddress())
-                    .dateOfBirth(request.getDateOfBirth())
-                    .gender(request.getGender().toString())
+                    .dateOfBirth(
+                            DateOfBirth.builder()
+                                    .year(request.getBirthYear())
+                                    .month(request.getBirthMonth())
+                                    .day(request.getBirthDay())
+                                    .build()
+                    )
+                    .gender(Gender.valueOf(request.getGender()))
                     .build();
             profileRepository.save(newProfile);
             return BaseResponse.builder()
