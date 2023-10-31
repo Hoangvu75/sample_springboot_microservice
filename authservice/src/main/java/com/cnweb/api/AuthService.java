@@ -26,7 +26,7 @@ public class AuthService {
         Account account = Account.builder()
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
-                .role(Role.USER.toString())
+                .role(Role.USER)
                 .build();
         accountRepository.save(account);
         return BaseResponse.builder()

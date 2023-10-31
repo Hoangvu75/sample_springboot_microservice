@@ -16,9 +16,9 @@ public class AccountUserDetails implements UserDetails {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
 
-    private final String role;
+    private final Role role;
 
-    public AccountUserDetails(String email, String password, String role) {
+    public AccountUserDetails(String email, String password, Role role) {
         this.email = email;
         this.password = password;
         this.role = role;
@@ -26,7 +26,7 @@ public class AccountUserDetails implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority(role));
+        return List.of(new SimpleGrantedAuthority(role.name()));
     }
 
     @Override

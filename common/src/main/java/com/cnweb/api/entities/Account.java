@@ -1,5 +1,6 @@
 package com.cnweb.api.entities;
 
+import com.cnweb.api.models.Role;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -25,7 +26,7 @@ public class Account {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
 
-    private String role;
+    private Role role;
     private Long createdAt;
     private Long updatedAt;
     private Long deletedAt;
