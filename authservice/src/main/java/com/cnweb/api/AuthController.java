@@ -31,12 +31,12 @@ public class AuthController {
             List<String> validateRequest = CustomValidation.checkForValidation(bindingResult);
             if (validateRequest != null) {
                 errorResponse.setMessage(validateRequest);
-                return ResponseEntity.status(500).body(errorResponse);
+                return ResponseEntity.internalServerError().body(errorResponse);
             }
             return ResponseEntity.ok(authService.register(request));
         } catch (Throwable error) {
             errorResponse.setMessage(error.getMessage());
-            return ResponseEntity.status(500).body(errorResponse);
+            return ResponseEntity.internalServerError().body(errorResponse);
         }
     }
 
@@ -50,12 +50,12 @@ public class AuthController {
             List<String> validateRequest = CustomValidation.checkForValidation(bindingResult);
             if (validateRequest != null) {
                 errorResponse.setMessage(validateRequest);
-                return ResponseEntity.status(500).body(errorResponse);
+                return ResponseEntity.internalServerError().body(errorResponse);
             }
             return ResponseEntity.ok(authService.login(request));
         } catch (Throwable error) {
             errorResponse.setMessage(error.getMessage());
-            return ResponseEntity.status(500).body(errorResponse);
+            return ResponseEntity.internalServerError().body(errorResponse);
         }
     }
 }

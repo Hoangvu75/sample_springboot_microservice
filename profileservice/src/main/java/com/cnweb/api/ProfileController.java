@@ -29,13 +29,13 @@ public class ProfileController {
             List<String> validateRequest = CustomValidation.checkForValidation(bindingResult);
             if (validateRequest != null) {
                 errorResponse.setMessage(validateRequest);
-                return ResponseEntity.status(500).body(errorResponse);
+                return ResponseEntity.internalServerError().body(errorResponse);
             }
             String accessToken = httpServletRequest.getHeader("Authorization").substring(7);
             return ResponseEntity.ok(profileService.create(request, accessToken));
         } catch (Throwable error) {
             errorResponse.setMessage(error.getMessage());
-            return ResponseEntity.status(500).body(errorResponse);
+            return ResponseEntity.internalServerError().body(errorResponse);
         }
     }
 
@@ -43,11 +43,11 @@ public class ProfileController {
     public ResponseEntity<Object> getProfile(HttpServletRequest httpServletRequest) {
         BaseResponse errorResponse = BaseResponse.builder().isSuccess(false).build();
         try {
-            String accessToken = httpServletRequest.getHeader("Authorization").substring(7);
+            String accessToken = httpServletRequest.getHeader("Authorization").substring("Bearer ".length());
             return ResponseEntity.ok(profileService.getProfile(accessToken));
         } catch (Throwable error) {
             errorResponse.setMessage(error.getMessage());
-            return ResponseEntity.status(500).body(errorResponse);
+            return ResponseEntity.internalServerError().body(errorResponse);
         }
     }
 }
