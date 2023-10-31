@@ -1,2 +1,23 @@
 server:
   port: 8080
+
+spring:
+  cloud:
+    gateway:
+      default-filters:
+        - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins: "*"
+            allowedMethods: "*"
+            allowedHeaders: "*"
+      routes:
+        - id: AUTH-SERVICE
+          uri: http://localhost:8081
+          predicates:
+            - Path=/api/auth/**
+        - id: PROFILE-SERVICE
+          uri: http://localhost:8082
+          predicates:
+            - Path=/api/profile/**

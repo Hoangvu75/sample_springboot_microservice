@@ -24,7 +24,6 @@ repositories {
 extra["springCloudVersion"] = "2022.0.4"
 
 dependencies {
-	implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.0.0")
 	implementation("org.springframework.cloud:spring-cloud-starter-gateway")
 }
 
